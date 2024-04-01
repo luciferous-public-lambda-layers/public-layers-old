@@ -56,7 +56,7 @@ create-change-set-artifacts-bucket:
 		--template-file template_artifacts_bucket.yml \
 		--parameter-overrides ArtifactsBucketName=$$(./generate_bucket_name.py) \
 		--no-fail-on-empty-changeset \
-		--no-confirm-changeset
+		--no-execute-changeset
 
 .PHONY: \
 	clean \
