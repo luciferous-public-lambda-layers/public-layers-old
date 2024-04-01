@@ -50,6 +50,14 @@ deploy-artifacts-bucket:
 		--parameter-overrides ArtifactsBucketName=$$(./generate_bucket_name.py) \
 		--no-fail-on-empty-changeset
 
+create-change-set-artifacts-bucket:
+	sam deploy \
+		--stack-name artifacts-bucket \
+		--template-file template_artifact_bucket.yml \
+		--parameter-overrides ArtifactsBucketName=$$(./generate_bucket_name.py) \
+		--no-fail-on-empty-changeset \
+		--no-confirm-changeset
+
 .PHONY: \
 	clean \
 	build-amd64 \
@@ -58,4 +66,5 @@ deploy-artifacts-bucket:
 	build-zstd-arm64 \
 	lint \
 	lint-template-bucket \
-	deploy-artifacts-bucket
+	deploy-artifacts-bucket \
+	create-change-set-artifacts-bucket
