@@ -1,0 +1,14 @@
+Parameters:
+  ArtifactsBucketName:
+    Type: String
+
+Resources:
+  ArtifactBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref ArtifactsBucketName
+      LifecycleConfiguration:
+        Rules:
+          - Id: AutoDelete
+            ExpirationInDays: 3
+            Status: Enabled
