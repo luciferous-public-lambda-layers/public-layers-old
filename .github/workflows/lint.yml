@@ -51,7 +51,7 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: ${{ matrix.version }}
+          aws-region: ${{ matrix.aws_region }}
       - uses: aws-actions/setup-sam@v2
         with:
           use-installer: true
