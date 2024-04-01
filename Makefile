@@ -23,16 +23,40 @@ build-zstd-arm64:
 	./build.sh --name Zstd-Python3_11-Arm64 --arch arm64 --runtime-version 3.11 --module ${ZSTD_MODULE}
 	./build.sh --name Zstd-Python3_12-Arm64 --arch arm64 --runtime-version 3.12 --module ${ZSTD_MODULE}
 
-format: \
-	fmt-terraform-root \
-	fmt-terraform-modules-layer
+lint: \
+	lint-python \
+	lint-template
 
-fmt-terraform-root:
-	terraform fmt
+lint-python: \
+	lint-python-isort \
+	lint-python-black
 
-fmt-terraform-modules-layer:
-	cd modules/layer; \
-	terraform fmt
+lint-python-isort:
+	poetry run isort --profile=black --check generate_bucket_name.py
+
+lint-python-black:
+	poetry run black --check generate_bucket_name.py
+
+lint-template: \
+	lint-template-artifacts-bucket
+
+lint-template-artifacts-bucket:
+	poetry run cfn-lint template_artifacts_bucket.yml
+
+deploy-artifacts-bucket:
+	sam deploy \
+		--stack-name artifacts-bucket \
+		--template-file template_artifacts_bucket.yml \
+		--parameter-overrides ArtifactsBucketName=$$(./generate_bucket_name.py) \
+		--no-fail-on-empty-changeset
+
+create-change-set-artifacts-bucket:
+	sam deploy \
+		--stack-name artifacts-bucket \
+		--template-file template_artifacts_bucket.yml \
+		--parameter-overrides ArtifactsBucketName=$$(./generate_bucket_name.py) \
+		--no-fail-on-empty-changeset \
+		--no-execute-changeset
 
 .PHONY: \
 	clean \
@@ -40,6 +64,7 @@ fmt-terraform-modules-layer:
 	build-arm64 \
 	build-zstd-amd64 \
 	build-zstd-arm64 \
-	format \
-	fmt-terraform-root \
-	fmt-terraform-modules-layer
+	lint \
+	lint-template-bucket \
+	deploy-artifacts-bucket \
+	create-change-set-artifacts-bucket

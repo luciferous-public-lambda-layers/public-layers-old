@@ -1,7 +1,5 @@
-name: deploy
-
 on:
-  push:
+  pull_request:
     branches:
       - master
 
@@ -10,6 +8,14 @@ permissions:
   contents: read
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install poetry
+      - run: poetry install
+      - run: make lint
+
   create-artifacts-bucket:
     runs-on: ubuntu-latest
     strategy:
@@ -53,6 +59,6 @@ jobs:
       - uses: aws-actions/setup-sam@v2
         with:
           use-installer: true
-      - run: make deploy-artifacts-bucket
+      - run: make create-change-set-artifacts-bucket
         env:
           AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
