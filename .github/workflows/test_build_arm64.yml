@@ -4,7 +4,7 @@ on:
       - test-build-arm64
 
 jobs:
-  build-amd64:
+  build-arm64:
     runs-on: buildjet-2vcpu-ubuntu-2204-arm
     steps:
       - uses: actions/checkout@v4
