@@ -46,14 +46,14 @@ lint-template-artifacts-bucket:
 deploy-artifacts-bucket:
 	sam deploy \
 		--stack-name artifacts-bucket \
-		--template-file template_artifact_bucket.yml \
+		--template-file template_artifacts_bucket.yml \
 		--parameter-overrides ArtifactsBucketName=$$(./generate_bucket_name.py) \
 		--no-fail-on-empty-changeset
 
 create-change-set-artifacts-bucket:
 	sam deploy \
 		--stack-name artifacts-bucket \
-		--template-file template_artifact_bucket.yml \
+		--template-file template_artifacts_bucket.yml \
 		--parameter-overrides ArtifactsBucketName=$$(./generate_bucket_name.py) \
 		--no-fail-on-empty-changeset \
 		--no-confirm-changeset
