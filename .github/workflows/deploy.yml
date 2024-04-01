@@ -50,7 +50,9 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ matrix.version }}
-      - uses: aws-actions/setup-sam
+      - uses: aws-actions/setup-sam@v2
+        with:
+          use-installer: true
       - run: make deploy-artifacts-bucket
         env:
           AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
