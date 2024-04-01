@@ -1,0 +1,15 @@
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-amd64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make build-amd64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: layers-amd64
+          path: layers/

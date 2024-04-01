@@ -56,3 +56,13 @@ jobs:
       - run: make deploy-artifacts-bucket
         env:
           AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+
+  build-amd64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make build-amd64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: layers-amd64
+          path: layers/
