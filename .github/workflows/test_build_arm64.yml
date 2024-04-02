@@ -5,9 +5,13 @@ on:
 
 jobs:
   build-arm64:
-    runs-on: buildjet-2vcpu-ubuntu-2204-arm
+#    runs-on: buildjet-2vcpu-ubuntu-2204-arm
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/arm64
       - run: make build-arm64
       - uses: actions/upload-artifact@v4
         with:
