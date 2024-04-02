@@ -1,11 +1,20 @@
 on:
   push:
     branches:
-      - test-build-arm64
+      - master
 
 jobs:
+  build-amd64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make build-amd64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: layers-amd64
+          path: layers/
+
   build-arm64:
-#    runs-on: buildjet-2vcpu-ubuntu-2204-arm
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
