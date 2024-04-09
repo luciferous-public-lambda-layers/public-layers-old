@@ -48,7 +48,7 @@ deploy-artifacts-bucket:
 		--no-fail-on-empty-changeset
 
 delete-artifacts-bucket:
-	sam deploy \
+	sam delete \
 		--stack-name artifacts-bucket
 
 create-change-set-artifacts-bucket:
