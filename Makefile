@@ -49,7 +49,8 @@ deploy-artifacts-bucket:
 
 delete-artifacts-bucket:
 	sam delete \
-		--stack-name artifacts-bucket
+		--stack-name artifacts-bucket \
+		--no-prompts
 
 create-change-set-artifacts-bucket:
 	sam deploy \
