@@ -2,8 +2,6 @@ name: deploy
 
 on:
   push:
-    branches:
-      - master
 
 permissions:
   id-token: write
@@ -53,6 +51,29 @@ jobs:
       - uses: aws-actions/setup-sam@v2
         with:
           use-installer: true
-      - run: make deploy-artifacts-bucket
+      - run: make delete-artifacts-bucket
         env:
           AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+
+  build-amd64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make build-amd64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: layers-amd64
+          path: layers/
+
+  build-arm64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/arm64
+      - run: make build-arm64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: layers-arm64
+          path: layers/

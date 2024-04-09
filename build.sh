@@ -50,9 +50,9 @@ mkdir -p layers/${layer_name}
 
 docker container run \
   --name $layer_name \
-  -w /tmp \
+  --platform linux/${architecture} \
   "public.ecr.aws/sam/build-python${runtime_version}:latest" \
-  "pip install ${module} -t /tmp/python"
+  pip install ${module} -t /tmp/python
 
 docker container cp $layer_name:/tmp/python layers/${layer_name}/
 docker container rm $layer_name

@@ -1,0 +1,15 @@
+{
+  "name": "public-layers",
+  "version": "1.0.0",
+  "description": "- pipモジュールをインストールしたLambda Layerを作成するためのテンプレート   - Lambda Layerを作成し、SSM ParameterにLayerArnを登録する - pipモジュールのインストールにはDockerとPoetryを利用する - AWSへのデプロイにはTerraformを使用する - Github Actionsを使用してAWSにデプロイするためのワークフロー定義も行っている",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-cdk": "^2.135.0"
+  }
+}
