@@ -2,8 +2,6 @@ name: deploy
 
 on:
   push:
-    branches:
-      - master
 
 permissions:
   id-token: write
@@ -53,7 +51,7 @@ jobs:
       - uses: aws-actions/setup-sam@v2
         with:
           use-installer: true
-      - run: make deploy-artifacts-bucket
+      - run: make delete-artifacts-bucket
         env:
           AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
 

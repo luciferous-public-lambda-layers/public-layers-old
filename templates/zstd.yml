@@ -1,0 +1,19 @@
+Parameters:
+  ModuleVersion:
+    Type: String
+
+Resources:
+  LayerPython39Arm64:
+    Type: AWS::Lambda::LayerVersion
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      LayerName: zstd-python39-arm64
+      Content: ../layers/zstd-python39-arm64
+      LicenseInfo: BSD 2-Clause "Simplified" License
+      CompatibleArchitectures:
+        - arm64
+      CompatibleRuntimes:
+        - python3.9
+
+

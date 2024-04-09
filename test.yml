@@ -1,0 +1,12 @@
+Parameters:
+  ModuleVersion:
+    Type: String
+Resources:
+  LayerPython39Arm64:
+    Type: AWS::Lambda::LayerVersion
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      Content:
+        S3Bucket: cm-natsume-data-bucket
+        S3Key: zstd-layer-tmp/788264f848b3e73359f62e3043520c3c
